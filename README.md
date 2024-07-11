@@ -4,9 +4,14 @@ This is the same application as the full-stack-example-1 from
 a previous assignment.  You can read about it here:
 https://github.com/env3d/full-stack-example-1
 
-Start a codespace.  Once completed, this will create a linux server that
+Start a codespaces.  Once completed, this will create a linux server that
 is ready for node development and you can access the app using
 the assignment URL from the "Ports" tab.
+
+You may have to wait a little while for codepsaces to start and install
+everything properly.  Once it's finished, run `npm run dev` in the terminal
+and you'll have the option to open a browser to access the running
+app.
 
 # Task
 
