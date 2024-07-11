@@ -4,7 +4,29 @@ const sqlite = require('sqlite');
 const express = require('express');
 const app = express();
 
+let validateJwt = require('./validateJwt');
+
 function setupServer(db) {
+
+    app.use((req, res, next) => {        
+
+        try {
+            auth = req.headers.authorization;
+            console.log(auth);
+            token = auth.trim().split(' ')[1];
+    
+            validateJwt(token).then( r => {
+                console.log(r);
+                next();
+            }).catch( e => {
+                res.status(401);
+                res.send(e.message);
+            })    
+        } catch (e) {
+            res.status(401);
+            res.send(e.message);            
+        }
+    })
 
     // This is a test frontend - uncomment to check it out
     // app.use(express.static('public'));
