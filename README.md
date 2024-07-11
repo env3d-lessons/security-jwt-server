@@ -36,3 +36,16 @@ header.  Here’s a relevant StackOverflow thread:
 https://stackoverflow.com/questions/50284841/how-to-extract-token-string-from-bearer-token 
 
 There’s no need to modify your frontend.  We will be testing your API via curl.
+
+# Hand-in
+
+Create a valid google JWT in the google oauth playground.  Put the JWT in a file
+called JWT.txt.
+
+Run `pytest` to make sure you have completed all the steps.  
+
+When you are satisified, run the following commands to submit:
+
+  - git add -A
+  - git commit -a -m 'submit'
+  - git push
