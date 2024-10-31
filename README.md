@@ -40,7 +40,7 @@ There’s no need to modify your frontend.  We will be testing your API via curl
 # Hand-in
 
 Create a valid google JWT in the google oauth playground.  Put the JWT in a file
-called JWT.txt.
+called `jwt.txt`.
 
 Run `pytest` to make sure you have completed all the steps.  
 
