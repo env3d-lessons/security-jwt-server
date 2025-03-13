@@ -11,12 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     if: github.actor != 'github-classroom[bot]'
     steps:
+    
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20  # Change this to your desired Node.js version
+
+    # - name: Set up Node.js
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: 20  # Change this to your desired Node.js version
     # - name: Install dependencies
     #   run: npm install
 
