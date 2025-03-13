@@ -11,7 +11,8 @@ expired_jwt = "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg3YmJlMDgxNWIwNjRlNmQ0NDljYWM5OTlmM
 @pytest.fixture(scope="session")
 def start_app():
     script_path = os.path.abspath("index.js")
-    p = subprocess.Popen("node index.js", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    script_dir = os.path.dirname(script_path)
+    p = subprocess.Popen(["node", "index.js"], cwd=script_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     time.sleep(2)
     print(p.stdout.readline())
     yield p
