@@ -54,7 +54,7 @@ jobs:
     #     setup-command: apt-get update && apt-get -y install curl wget 
 
     - name: Autograding Reporter
-      
+      uses: classroom-resources/autograding-grading-reporter@v1
       env:
         A-COMMAND-TEST_RESULTS: "${{steps.a-command-test.outputs.result}}"
       with:
