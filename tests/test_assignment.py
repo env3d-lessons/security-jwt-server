@@ -12,7 +12,7 @@ expired_jwt = "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg3YmJlMDgxNWIwNjRlNmQ0NDljYWM5OTlmM
 
 @pytest.fixture(scope="session")
 def start_app():
-    p = subprocess.Popen("node", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    p = subprocess.Popen(["node"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     time.sleep(2)
     print(p.stdout.readline())
     yield p
