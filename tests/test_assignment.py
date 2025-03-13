@@ -12,16 +12,32 @@ expired_jwt = "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg3YmJlMDgxNWIwNjRlNmQ0NDljYWM5OTlmM
 
 @pytest.fixture(scope="session")
 def start_app():
+    p = subprocess.Popen("ls", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    time.sleep(2)
+    print(p.stdout.readline())
+    yield path
+    try:
+        if p.poll() is None:  # Check if the process is still running
+            print("Terminating process...")
+            p.terminate()  # Try a graceful termination first
+            p.wait(timeout=5)  # Wait for the process to terminate gracefully
+            
+            if p.poll() is None:  # If it's still running, force kill it
+                print("Force killing process...")
+                os.killpg(os.getpgid(p.pid), signal.SIGKILL)
+    except Exception as e:
+        print(f"Error terminating process: {e}")
+        
+def start_app2():
     script_path = os.path.abspath("index.js")
     script_dir = os.path.dirname(script_path)
     node_path = shutil.which('node')
     print(script_dir, script_path, node_path)
-    # p = subprocess.Popen([node_path, script_path], cwd=script_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    p = subprocess.Popen(f"{node_path}  {script_path}", shell=True, cwd=script_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    p = subprocess.Popen([node_path, script_path], cwd=script_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    # p = subprocess.Popen(f"{node_path}  {script_path}", shell=True, cwd=script_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     time.sleep(2)
     print(p.stdout.readline())
     yield p
-    # Gracefully terminate the process and its children
     # Gracefully terminate the process and its children
     try:
         if p.poll() is None:  # Check if the process is still running
