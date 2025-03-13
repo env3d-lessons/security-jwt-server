@@ -27,6 +27,7 @@ jobs:
       run: pip install pytest
 
     - name: run pytest
+      id: custom-pytest
       run: pytest || true
       
     - name: debug
@@ -43,6 +44,6 @@ jobs:
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        PYTEST_RESULTS: "result.json"
+        CUSTOM-PYTEST_RESULTS: "result.json"
       with:
-        runners: pytest
+        runners: custom-pytest
