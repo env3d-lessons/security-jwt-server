@@ -15,6 +15,7 @@ def start_app():
     script_path = os.path.abspath("index.js")
     script_dir = os.path.dirname(script_path)
     node_path = shutil.which('node')
+    print(script_dir, script_path, node_path)
     p = subprocess.Popen([node_path, script_path], cwd=script_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     time.sleep(2)
     print(p.stdout.readline())
