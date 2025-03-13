@@ -12,7 +12,7 @@ expired_jwt = "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg3YmJlMDgxNWIwNjRlNmQ0NDljYWM5OTlmM
 def start_app():
     script_path = os.path.abspath("index.js")
     script_dir = os.path.dirname(script_path)
-    p = subprocess.Popen("node index.js", shell=True, cwd=script_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    p = subprocess.Popen(["node", script_path], cwd=script_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     time.sleep(2)
     print(p.stdout.readline())
     yield p
