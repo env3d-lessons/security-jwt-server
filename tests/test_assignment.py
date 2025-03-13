@@ -12,6 +12,9 @@ expired_jwt = "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg3YmJlMDgxNWIwNjRlNmQ0NDljYWM5OTlmM
 
 @pytest.fixture(scope="session")
 def start_app():
+    time.sleep(2)
+    
+def start_app2():
     script_path = os.path.abspath("index.js")
     script_dir = os.path.dirname(script_path)
     node_path = shutil.which('node')
