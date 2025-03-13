@@ -15,6 +15,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: apt install
+      run: sudo apt-get update && sudo apt-get -y install curl wget 
+
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
@@ -37,8 +40,7 @@ jobs:
       id: a-command-test
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Test 1
-        setup-command: apt-get update && apt-get -y install curl wget 
+        test-name: Test 1        
         command: pytest -k test_with_no_jwt
         timeout: 10
         max-score: 1
