@@ -12,9 +12,6 @@ jobs:
     if: github.actor != 'github-classroom[bot]'
     steps:
 
-    - name: debug
-      run: pwd
-
     - name: Checkout code
       uses: actions/checkout@v4
 
@@ -32,7 +29,8 @@ jobs:
     - name: run pytest
       run: pytest || true
       
-
+    - name: debug
+      run: ls
 
     # - name: pytest
     #   id: pytest
