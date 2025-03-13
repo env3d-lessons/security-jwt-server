@@ -26,6 +26,9 @@ jobs:
     # - name: run pytest
     #   run: pytest -s
       
+    - name: dir
+      run: echo "CURRENT DIRECTORY: $(pwd)"
+
     - name: pytest
       id: pytest
       uses: classroom-resources/autograding-python-grader@v1

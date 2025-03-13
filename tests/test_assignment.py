@@ -51,4 +51,3 @@ def test_with_valid_jwt(start_app):
         jwt = f.read().strip()
         content = os.popen(f'curl -s --head -H "Authorization: Bearer {jwt}" localhost:8080/info').read()
         assert '200' in content
-
