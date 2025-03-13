@@ -36,8 +36,8 @@ jobs:
     - name: debug
       run: ls
 
-    - name: A command test
-      id: a-command-test
+    - name: test 1
+      id: a-command-test-1
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Test 1        
@@ -45,6 +45,33 @@ jobs:
         timeout: 10
         max-score: 1
 
+    - name: test 2
+      id: a-command-test-2
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test 2        
+        command: pytest -k test_with_expired_jwt
+        timeout: 10
+        max-score: 1
+
+    - name: test 3
+      id: a-command-test-3
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test 3        
+        command: pytest -k test_with_bad_jwt
+        timeout: 10
+        max-score: 1
+
+    - name: test 4
+      id: a-command-test-4
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test 4        
+        command: pytest -k test_with_valid_jwt
+        timeout: 10
+        max-score: 1
+        
     # - name: pytest
     #   id: pytest
     #   uses: classroom-resources/autograding-python-grader@v1
@@ -56,6 +83,9 @@ jobs:
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        A-COMMAND-TEST_RESULTS: "${{steps.a-command-test.outputs.result}}"
+        A-COMMAND-TEST-1_RESULTS: "${{steps.a-command-test-1.outputs.result}}"
+        A-COMMAND-TEST-2_RESULTS: "${{steps.a-command-test-2.outputs.result}}"
+        A-COMMAND-TEST-3_RESULTS: "${{steps.a-command-test-3.outputs.result}}"
+        A-COMMAND-TEST-4_RESULTS: "${{steps.a-command-test-4.outputs.result}}"
       with:
-        runners: a-command-test
+        runners: a-command-test-1,a-command-test-2,a-command-test-3,a-command-test-4
