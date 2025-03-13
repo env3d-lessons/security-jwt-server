@@ -4,35 +4,10 @@ const sqlite = require('sqlite');
 const express = require('express');
 const app = express();
 
-let validateJwt = require('./validateJwt');
-const e = require('express');
-
-const extractToken = (req) => {
-    const authHeader = req.header('Authorization');  
-    if (authHeader && authHeader.startsWith('Bearer ')) {
-        return authHeader.split(' ')[1];  // Extract token after "Bearer "
-    }
-    return null;
-};
-
-
-// Middleware function
-async function authjwt(req, res, next) {
-    console.log('Extract JWT from req and check');
-    const token = extractToken(req);
-    const userData = await validateJwt(token);
-    if (!userData) {
-        return res.status(401).json({ message: 'Invalid Google token' });
-    } else {
-        next();
-    }
-};
-
 function setupServer(db) {
 
     // This is a test frontend - uncomment to check it out
     // app.use(express.static('public'));
-    app.use(authjwt)
     
     app.get('/info', (req, res) => {
         res.send('Full stack example');
@@ -46,7 +21,7 @@ function setupServer(db) {
               res.send(data);
           });
     });
-
+ 
     app.get('/streets/:street/', (req, res) => {
         let streetName = req.params.street;
         // query based on street
