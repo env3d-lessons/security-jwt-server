@@ -12,6 +12,9 @@ jobs:
     if: github.actor != 'github-classroom[bot]'
     steps:
 
+    - name: debug
+      run: pwd
+
     - name: Checkout code
       uses: actions/checkout@v4
 
@@ -19,25 +22,25 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 20  # Change this to your desired Node.js version
+
     - name: Install dependencies
       run: npm install
 
-    # - name: install pytest
-    #   run: pip install pytest
+    - name: install pytest
+      run: pip install pytest
 
-    # - name: run pytest
-    #   run: pytest -s
+    - name: run pytest
+      run: pytest 
       
-    - name: debug
-      run: pwd
 
-    - name: pytest
-      id: pytest
-      uses: classroom-resources/autograding-python-grader@v1
-      with:
-        timeout: 10
-        max-score: 4
-        setup-command: apt-get update && apt-get -y install curl wget 
+
+    # - name: pytest
+    #   id: pytest
+    #   uses: classroom-resources/autograding-python-grader@v1
+    #   with:
+    #     timeout: 10
+    #     max-score: 4
+    #     setup-command: apt-get update && apt-get -y install curl wget 
 
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
