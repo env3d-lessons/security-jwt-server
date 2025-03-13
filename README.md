@@ -28,7 +28,7 @@ a sequence diagram of what happens when a valid token is sent to the backend:
 
 To make things easier, I have provided a function in the file validateJwt.js called 
 `verifyGoogleToken`.  This function comes from the google oauth library and return 
-the token data if valid and throws an error if invalid. 
+the token data if valid and returns null if token is invalid. 
 
 Below is a simple example of how to use this function:
 
