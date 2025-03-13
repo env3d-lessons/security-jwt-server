@@ -45,5 +45,3 @@ jobs:
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
         CUSTOM-PYTEST_RESULTS: "result.json"
-      with:
-        runners: custom-pytest
