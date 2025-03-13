@@ -44,4 +44,6 @@ jobs:
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        CUSTOM-PYTEST_RESULTS: "result.json"
+        PYTEST_RESULTS: "result.json"
+      with:
+        runners: pytest
