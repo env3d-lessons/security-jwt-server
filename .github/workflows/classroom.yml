@@ -23,9 +23,6 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Install apt dependencies
-      run: sudo apt-get update && apt-get -y install curl wget 
-
     - name: install pytest
       run: pip install pytest
 
@@ -41,6 +38,7 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Test 1
+        setup-command: apt-get update && apt-get -y install curl wget 
         command: pytest -k test_with_no_jwt
         timeout: 10
         max-score: 1
