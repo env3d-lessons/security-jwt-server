@@ -35,19 +35,19 @@ def start_app():
         print(f"Error terminating process: {e}")
         
 def test_with_no_jwt(start_app):
-    content = os.popen('curl -s --head localhost:8080/info').read()
+    content = os.popen('curl -s --head http://localhost:8080/info').read()
     assert 'Unauthorized' in content
 
 def test_with_bad_jwt(start_app):
-    content = os.popen(f'curl -s --head -H "Authorization: Bearer {bad_jwt}" localhost:8080/info').read()
+    content = os.popen(f'curl -s --head -H "Authorization: Bearer {bad_jwt}" http://localhost:8080/info').read()
     assert 'Unauthorized' in content
 
 def test_with_expired_jwt(start_app):
-    content = os.popen(f'curl -s --head -H "Authorization: Bearer {expired_jwt}" localhost:8080/info').read()
+    content = os.popen(f'curl -s --head -H "Authorization: Bearer {expired_jwt}" http://localhost:8080/info').read()
     assert 'Unauthorized' in content
 
 def test_with_valid_jwt(start_app):
     with open('jwt.txt') as f:
         jwt = f.read().strip()
-        content = os.popen(f'curl -s --head -H "Authorization: Bearer {jwt}" localhost:8080/info').read()
+        content = os.popen(f'curl -s --head -H "Authorization: Bearer {jwt}" http://localhost:8080/info').read()
         assert '200' in content
