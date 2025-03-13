@@ -26,11 +26,38 @@ a sequence diagram of what happens when a valid token is sent to the backend:
 
 ![Auth sequence](https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgQXBwIEF1dGggd2l0aCBKV1QKCkNsaWVudCBBcHAtPgAWBVByb3ZpZGVyOiAvbG9naW4gKHVzZXIgaWQvcGFzc3dvcmQpCgAcDS0-ADoKOiBUb2tlbgBJDQASDFN0b3JlABETQmFja2VuZCBBcGk6IC1IICdBdXRob3JpemF0aW9uOiBCZWFyZXIgJHsAWgV9JyAvQVBJX0NhbGwKADALADkPdmVyaWZ5KHRva2VuKQAaDkRhdGFiYXNlOiBTUUwKAAYIAHkPcmVzdWx0cwBUDgCBYAxIVFRQIDEuMS8yMDAgT0ssAIJRBgAwByBpbiBib2R5IAo&s=default)
 
-To make things easier, I have provided an example node app for you as a reference:
-https://github.com/env3d/jwt-node-example.  The validateJwt.js file provides the
-function for you to use.  This is also a good time to look up "middleware" in NodeJs.  
+To make things easier, I have provided a function in the file validateJwt.js called 
+`verifyGoogleToken`.  This function comes from the google oauth library and return 
+the token data if valid and throws an error if invalid. 
 
-HINT: the above example endpoint verifies a token provided in the query parameter.
+Below is a simple example of how to use this function:
+
+```javscript
+const express = require('express');
+const verifyGoogleToken = require('./validateJwt.js');
+
+const app = express();
+app.use(express.json());
+
+app.post('/auth/google', async (req, res) => {
+    const { token } = req.body;
+
+    if (!token) {
+        return res.status(400).json({ message: 'Token is required' });
+    }
+
+    const userData = await verifyGoogleToken(token);
+    if (!userData) {
+        return res.status(401).json({ message: 'Invalid Google token' });
+    }
+
+    res.json({ message: 'Token is valid', user: userData });
+});
+
+app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+```
+
+HINT: the above example endpoint verifies a token provided in the request body.
 When integrating in a webapp, you will expect the token in the "Authorization: Bearer"
 header.  Here’s a relevant StackOverflow thread:
 https://stackoverflow.com/questions/50284841/how-to-extract-token-string-from-bearer-token 
