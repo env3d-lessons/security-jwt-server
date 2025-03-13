@@ -49,5 +49,6 @@ def test_with_expired_jwt(start_app):
 def test_with_valid_jwt(start_app):
     with open('jwt.txt') as f:
         jwt = f.read().strip()
+        assert len(jwt) > 0, "you must put a valid jwt in jwt.txt"
         content = os.popen(f'curl -s --head -H "Authorization: Bearer {jwt}" http://localhost:8080/info').read()
         assert '200' in content
