@@ -54,7 +54,7 @@ jobs:
     #     setup-command: apt-get update && apt-get -y install curl wget 
 
     - name: Autograding Reporter
-      uses: ./
+      uses: ../
       env:
         A-COMMAND-TEST_RESULTS: "${{steps.a-command-test.outputs.result}}"
       with:
