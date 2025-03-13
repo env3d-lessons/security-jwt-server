@@ -20,10 +20,17 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Install pytest
-      run: pip install pytest
-      
-    - name: Run pytest with -s flag
-      run: |
-        pytest -s 
-
+    - name: pytest
+      id: pytest
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 10
+        setup-command: apt-get update && apt-get -y install curl wget
+        
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        PYTEST_RESULTS: "${{steps.pytest.outputs.result}}"
+      with:
+        runners: pytest

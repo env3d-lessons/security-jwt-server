@@ -21,12 +21,19 @@ def start_app():
     print(p.stdout.readline())
     yield p
     # Gracefully terminate the process and its children
-    if p.poll() is None:  # Check if process is still running
-        os.killpg(os.getpgid(p.pid), signal.SIGTERM)  # Kill process group
-        time.sleep(2)  # Give it time to terminate
-        if p.poll() is None:  # If still running, force kill
-            os.killpg(os.getpgid(p.pid), signal.SIGKILL)
-
+    # Gracefully terminate the process and its children
+    try:
+        if p.poll() is None:  # Check if the process is still running
+            print("Terminating process...")
+            p.terminate()  # Try a graceful termination first
+            p.wait(timeout=5)  # Wait for the process to terminate gracefully
+            
+            if p.poll() is None:  # If it's still running, force kill it
+                print("Force killing process...")
+                os.killpg(os.getpgid(p.pid), signal.SIGKILL)
+    except Exception as e:
+        print(f"Error terminating process: {e}")
+        
 def test_with_no_jwt(start_app):
     content = os.popen('curl -s --head localhost:8080/info').read()
     assert 'Unauthorized' in content
