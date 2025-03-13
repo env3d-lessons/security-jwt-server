@@ -23,15 +23,27 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Install apt dependencies
+      run: apt-get update && apt-get -y install curl wget 
+
     - name: install pytest
       run: pip install pytest
 
-    - name: run pytest
-      id: custom-pytest
-      run: pytest || true
+    # - name: run pytest
+    #   id: custom-pytest
+    #   run: pytest || true
       
     - name: debug
       run: ls
+
+    - name: A command test
+      id: a-command-test
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test 1
+        command: pytest -k test_with_no_jwt
+        timeout: 10
+        max-score: 1
 
     # - name: pytest
     #   id: pytest
