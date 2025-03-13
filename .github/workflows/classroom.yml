@@ -27,7 +27,7 @@ jobs:
     #   run: pytest -s
       
     - name: dir
-      run: echo "CURRENT DIRECTORY: $(pwd)"
+      run: echo "CURRENT DIRECTORY: $(pwd)" 
 
     - name: pytest
       id: pytest
